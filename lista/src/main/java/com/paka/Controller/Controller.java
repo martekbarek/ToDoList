@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.paka.Entity.Task;
+import com.paka.Query.Deletetasks;
 import com.paka.Query.createQuery;
 
 @org.springframework.stereotype.Controller
@@ -21,8 +24,10 @@ public class Controller {
 	
 @RequestMapping("/")
 	
-	public String ctrl() {
+	public ModelAndView ctrl() {
 		
+	ModelAndView mv = new ModelAndView();
+	
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Task.class)
@@ -36,7 +41,7 @@ public class Controller {
 			session.beginTransaction();
 			
 			List<Task> tasks= session.createQuery("from Task").getResultList();
-			
+			mv.addObject("tasks", tasks);
 			for (Task tempTask : tasks)
 			{
 				System.out.println(tempTask+" ");
@@ -56,7 +61,12 @@ public class Controller {
 		
 		
 		
-		return "allTasks";
+		mv.setViewName("allTasks");
+		
+		
+		return mv;
+		
+		
 	}
 	
 	
@@ -76,13 +86,17 @@ public class Controller {
 			session.beginTransaction();
 			System.out.println("Creating new task");
 			
+			
+			
+			
 			Task task = new Task();
 			
 			task.setContent(content);
 			task.setData(data);
 			
 			session.save(task);
-			
+			List<Task> tasks= session.createQuery("from Task").getResultList();
+			mv.addObject("tasks", tasks);
 			session.getTransaction().commit();
 			
 		} finally {
@@ -92,6 +106,9 @@ public class Controller {
 			
 		}
 		
+		
+		
+		
 	
 		
 		mv.setViewName("allTasks");
@@ -99,6 +116,25 @@ public class Controller {
 		
 		return mv;
 	}
+	
+	
+	@RequestMapping("/deleteTask")
+	public ModelAndView deleteTask(@ModelAttribute("deletetasks") Deletetasks del)
+	{
+		ModelAndView mv = new ModelAndView();
+
+		del.toString();
+		System.out.println(del);
+		
+		
+		
+		mv.setViewName("allTasks");
+		
+		return mv;
+	}
+	
+	
+	
 	
 	
 }
