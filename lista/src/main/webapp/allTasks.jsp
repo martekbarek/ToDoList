@@ -9,14 +9,14 @@
 <body>
 
 
-<form:form action="deleteTask" modelAttribute="deleteTasks">
+<form action="deleteTask" >
 	<c:forEach var="task" items="${tasks}">
 	<tr>
-	<td><form:checkbox path="todel" value="${task.id}" />  ${task.content} | ${task.data} <br></td>
+	<td><input type="checkbox" value="${task.id}" name="id" >  ${task.content} | ${task.data} <br></td>
 	</tr>
 	</c:forEach>
 	<input type="submit" value="WYKONANE">
-</form:form>
+</form>
 
 <a href="createTask.jsp">Create task to do</a>
 
