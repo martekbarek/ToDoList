@@ -119,19 +119,54 @@ public class Controller {
 	
 	
 	@RequestMapping("/deleteTask")
-	public ModelAndView deleteTask(@ModelAttribute("deletetasks") Deletetasks del)
+	public ModelAndView deleteTask(@RequestParam("id") int id,HttpServletRequest request,HttpServletResponse response)
 	{
 		ModelAndView mv = new ModelAndView();
 
-		del.toString();
-		System.out.println(del);
 		
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Task.class)
+				.buildSessionFactory();
+		
+		Session session = factory.getCurrentSession();
+
+		
+		try {
+			
+	
+			session.beginTransaction();
+			session.createQuery("delete Task where id= "+id).executeUpdate();
+			List<Task> tasks= session.createQuery("from Task").getResultList();
+			mv.addObject("tasks", tasks);
+			for (Task tempTask : tasks)
+			{
+				System.out.println(tempTask+" ");
+			}
+			
+			
+			session.getTransaction().commit();
+			System.out.println("Done");
+			
+			
+		} finally {
+			
+			factory.close();
+			
+		}
 		
 		
 		mv.setViewName("allTasks");
 		
 		return mv;
 	}
+	
+	
+	public void generate() {
+		
+		
+	}
+	
 	
 	
 	

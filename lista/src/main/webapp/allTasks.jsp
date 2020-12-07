@@ -12,7 +12,7 @@
 <form action="deleteTask" >
 	<c:forEach var="task" items="${tasks}">
 	<tr>
-	<td><input type="checkbox" value="${task.id}" name="id" >  ${task.content} | ${task.data} <br></td>
+	<td><input type="checkbox" value="${task.id}" name="id" onclick="this.form.submit();">  ${task.content} | ${task.data} <br></td>
 	</tr>
 	</c:forEach>
 	<input type="submit" value="WYKONANE">
