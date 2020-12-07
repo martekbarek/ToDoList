@@ -4,14 +4,16 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Wpisz swoje zadanko :)</title>
+<title>New task</title>
 </head>
 <body>
-		SIEMA SIEMA <br> <hr>
+<h1>New task</h1> 
+<br> <hr>
+
 	<form action="create">
 	
-		Tresc czegos: <input type="text" name="content"><br>
-		Data wykonania: <input type="text" name="data"><br>
+		Content: <input type="text" name="content"><br>
+		Deadline: <input type="text" name="data"><br>
 		<input type="submit">
 	
 	</form>

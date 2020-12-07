@@ -107,10 +107,6 @@ public class Controller {
 		}
 		
 		
-		
-		
-	
-		
 		mv.setViewName("allTasks");
 		
 		
@@ -143,7 +139,6 @@ public class Controller {
 			{
 				System.out.println(tempTask+" ");
 			}
-			
 			
 			session.getTransaction().commit();
 			System.out.println("Done");

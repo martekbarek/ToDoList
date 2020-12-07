@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<h1>Your tasks</h1>
 
 <form action="deleteTask" >
 	<c:forEach var="task" items="${tasks}">
@@ -15,10 +15,9 @@
 	<td><input type="checkbox" value="${task.id}" name="id" onclick="this.form.submit();">  ${task.content} | ${task.data} <br></td>
 	</tr>
 	</c:forEach>
-	<input type="submit" value="WYKONANE">
 </form>
 
-<a href="createTask.jsp">Create task to do</a>
+<a href="createTask.jsp">New task</a>
 
 </body>
 </html>
