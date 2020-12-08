@@ -10,7 +10,7 @@
 <h1>New task</h1> 
 <br> <hr>
 
-	<form action="create">
+	<form method="post" action="create">
 	
 		Content: <input type="text" name="content"><br>
 		Deadline: <input type="text" name="data"><br>

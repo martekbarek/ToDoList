@@ -9,15 +9,16 @@
 <body>
 <h1>Your tasks</h1>
 
-<form action="deleteTask" >
+<form id="editTask"  method="post" action="editTask"></form>
+<form id="deleteTask" method="post" action="deleteTask" >
 	<c:forEach var="task" items="${tasks}">
 	<tr>
-	<td><input type="checkbox" value="${task.id}" name="id" onclick="this.form.submit();">  ${task.content} | ${task.data} <br></td>
+	<td><input form="deleteTask" type="checkbox" value="${task.id}" name="id" onclick="this.form.submit();">  ${task.content} | ${task.data} <button form="editTask" type="submit" value="${task.id}" name="id" >Edit</button>   <br></td>
 	</tr>
 	</c:forEach>
 </form>
 
-<a href="createTask.jsp">New task</a>
+<a href="createTask">New task</a>
 
 </body>
 </html>
