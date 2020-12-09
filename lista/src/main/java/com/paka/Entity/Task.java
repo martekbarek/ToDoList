@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="list")
@@ -17,6 +19,8 @@ public class Task {
 	private int id;
 	
 	@Column(name="content")
+	@NotNull(message="is required")
+	@Size(min=1, message="is required")
 	private String content;
 	
 	@Column(name="data")
