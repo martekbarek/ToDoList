@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -19,8 +20,8 @@ public class Task {
 	private int id;
 	
 	@Column(name="content")
+	@Pattern(regexp="^[a-zA-Z0-9]{1,}")
 	@NotNull(message="is required")
-	@Size(min=1, message="is required")
 	private String content;
 	
 	@Column(name="data")

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,13 +12,18 @@
 <h1>New task</h1> 
 <br> <hr>
 
-	<form method="post" action="create">
+	<form:form action="create" modelAttribute="task" method="post" >
 	
-		Content: <input type="text" name="content"><br>
-		Deadline: <input type="text" name="data"><br>
-		<input type="submit">
+		Content: <form:input path="content" /><br>
+		<form:errors path="content" cssClass="error"/>
+		
+		Deadline: <form:input path="data" /><br>
+		<form:errors path="data" cssClass="error"/>
+		
+		
+		<input type="submit" value="Submit">
 	
-	</form>
+	</form:form>
 <hr>
 
 </body>

@@ -4,14 +4,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
+import org.springframework.ui.Model;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.paka.Entity.Task;
 
 @org.springframework.stereotype.Controller
-@Validated
 public class Controller {
 
 	
@@ -79,7 +82,8 @@ public class Controller {
 	
 	
 	@RequestMapping("/create")
-	public ModelAndView createTask(@RequestParam("content") String content,@RequestParam("data") int data,HttpServletRequest request,HttpServletResponse response) {
+	public ModelAndView createTask(
+			@Valid @ModelAttribute("task") Task theTask, BindingResult theBindingResult) {
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -94,27 +98,24 @@ public class Controller {
 			session.beginTransaction();
 			System.out.println("Creating new task");
 			
-			Task task = new Task();
 			
-			task.setContent(content);
-			task.setData(data);
-			
-			session.save(task);
+			session.save(theTask);
 			List<Task> tasks= session.createQuery("from Task").getResultList();
 			mv.addObject("tasks", tasks);
 			session.getTransaction().commit();
 			
 		} finally {
-			
-			
-			factory.close();
-			
+			factory.close();	
 		}
 		
-		
-		mv.setViewName("allTasks");
-		
-		
+		if (theBindingResult.hasErrors()) {
+			mv.setViewName("createTask");
+			
+		} 
+		else {
+			mv.setViewName("allTasks");
+
+		}
 		return mv;
 	}
 	
@@ -131,11 +132,7 @@ public class Controller {
 				.buildSessionFactory();
 		
 		Session session = factory.getCurrentSession();
-
-		
 		try {
-			
-	
 			session.beginTransaction();
 			session.createQuery("delete Task where id= "+id).executeUpdate();
 			List<Task> tasks= session.createQuery("from Task").getResultList();
@@ -148,13 +145,13 @@ public class Controller {
 			session.getTransaction().commit();
 			System.out.println("Done");
 			
-			
-		} finally {
+			}
+		
+		finally {
 			
 			factory.close();
 			
-		}
-		
+			}
 		
 		mv.setViewName("allTasks");
 		
@@ -235,7 +232,8 @@ public ModelAndView edit(@RequestParam("id") int id,@RequestParam("content") Str
 	
 	
 	@RequestMapping("createTask")
-	public ModelAndView createTask() {
+	public ModelAndView create(	@Valid @ModelAttribute("task") Task theTask, BindingResult theBindingResult) 
+ {
 		
 		ModelAndView mv = new ModelAndView();
 			
