@@ -13,8 +13,10 @@
 <br> <hr>
 
 	<form:form method="post" action="edit" modelAttribute="task">
+	
 		<form:hidden path="id"/>
-		Content:  <form:input path="content"/><br>
+		Content:  <form:input path="content"/><br> <form:errors path="content" cssClass="error"/>
+		
 		Deadline: <form:input path="data"/><br>
 		
 		<input type="submit" >
