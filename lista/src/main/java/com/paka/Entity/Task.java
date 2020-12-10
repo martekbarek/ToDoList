@@ -20,8 +20,8 @@ public class Task {
 	private int id;
 	
 	@Column(name="content")
-	@Pattern(regexp="^[a-zA-Z0-9]{1,}")
 	@NotNull(message="is required")
+	@Size(min=1, message="is required")
 	private String content;
 	
 	@Column(name="data")

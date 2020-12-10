@@ -37,7 +37,6 @@ public class Controller {
 	}
 	
 	
-	
 	@RequestMapping("/")
 	public ModelAndView ctrl() {
 		
@@ -87,6 +86,15 @@ public class Controller {
 		
 		ModelAndView mv = new ModelAndView();
 		
+		if (theBindingResult.hasErrors()) {
+			mv.setViewName("createTask");
+			return mv;
+		} 
+		else {
+			mv.setViewName("allTasks");
+
+		}
+		
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Task.class)
@@ -108,14 +116,7 @@ public class Controller {
 			factory.close();	
 		}
 		
-		if (theBindingResult.hasErrors()) {
-			mv.setViewName("createTask");
-			
-		} 
-		else {
-			mv.setViewName("allTasks");
-
-		}
+		
 		return mv;
 	}
 	

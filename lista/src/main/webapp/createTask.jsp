@@ -14,11 +14,10 @@
 
 	<form:form action="create" modelAttribute="task" method="post" >
 	
-		Content: <form:input path="content" /><br>
-		<form:errors path="content" cssClass="error"/>
+		Content: <form:input path="content" /> <br> <form:errors path="content" cssClass="error"/>
 		
 		Deadline: <form:input path="data" /><br>
-		<form:errors path="data" cssClass="error"/>
+		
 		
 		
 		<input type="submit" value="Submit">
