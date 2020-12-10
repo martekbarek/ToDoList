@@ -15,7 +15,7 @@
 	<form:form method="post" action="edit" modelAttribute="task">
 	
 		<form:hidden path="id"/>
-		Content:  <form:input path="content"/><br> <form:errors path="content" cssClass="error"/>
+		Content:  <form:input path="content"/> <form:errors path="content" cssClass="error"/>
 		
 		Deadline: <form:input path="data"/><br>
 		

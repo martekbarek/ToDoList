@@ -84,15 +84,16 @@ public class Controller {
 	public ModelAndView createTask(
 			@Valid @ModelAttribute("task") Task theTask, BindingResult theBindingResult) {
 		
+		
 		ModelAndView mv = new ModelAndView();
 		
 		if (theBindingResult.hasErrors()) {
-			mv.setViewName("createTask");
+			
+				mv.setViewName("createTask");
 			return mv;
 		} 
 		else {
 			mv.setViewName("allTasks");
-
 		}
 		
 		SessionFactory factory = new Configuration()
@@ -106,8 +107,8 @@ public class Controller {
 			session.beginTransaction();
 			System.out.println("Creating new task");
 			
-			
 			session.save(theTask);
+
 			List<Task> tasks= session.createQuery("from Task").getResultList();
 			mv.addObject("tasks", tasks);
 			session.getTransaction().commit();
@@ -193,7 +194,7 @@ public class Controller {
 		return mv;
 	}
 	
-	
+	/*
 	@RequestMapping("edit")
 public ModelAndView edit(@RequestParam("id") int id,@RequestParam("content") String content,@RequestParam("data") int data,HttpServletRequest request,HttpServletResponse response) {
 		
@@ -231,9 +232,91 @@ public ModelAndView edit(@RequestParam("id") int id,@RequestParam("content") Str
 		return mv;
 	}
 	
+	*/
+	@RequestMapping("/edit")
+	public ModelAndView edit(
+			@Valid @ModelAttribute("task") Task theTask, BindingResult theBindingResult) {
+		
+		
+		ModelAndView mv = new ModelAndView();
+		
+		if (theBindingResult.hasErrors()) {
+			
+				mv.setViewName("editTask");
+			return mv;
+		} 
+		else {
+			mv.setViewName("allTasks");
+		}
+		
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Task.class)
+				.buildSessionFactory();
+		
+		Session session = factory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			
+		
+			session.createQuery("update Task set content= '"+theTask.getContent()+"' where id=" + theTask.getId()).executeUpdate();
+			session.createQuery("update Task set data= '"+theTask.getData()+"' where id=" + theTask.getId()).executeUpdate();
+
+			List<Task> tasks= session.createQuery("from Task").getResultList();
+			mv.addObject("tasks", tasks);
+			session.getTransaction().commit();
+			
+		} finally {
+			
+			
+			factory.close();
+			
+		}
+		
+		
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping("createTask")
-	public ModelAndView create(	@Valid @ModelAttribute("task") Task theTask, BindingResult theBindingResult) 
+	public ModelAndView create(	 @ModelAttribute("task") Task theTask, BindingResult theBindingResult) 
  {
 		
 		ModelAndView mv = new ModelAndView();

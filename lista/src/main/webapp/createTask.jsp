@@ -14,7 +14,7 @@
 
 	<form:form action="create" modelAttribute="task" method="post" >
 	
-		Content: <form:input path="content" /> <br> <form:errors path="content" cssClass="error"/>
+		Content: <form:input path="content" />  <form:errors style="color:red" path="content"/>
 		
 		Deadline: <form:input path="data" /><br>
 		
