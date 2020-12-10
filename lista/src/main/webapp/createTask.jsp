@@ -16,7 +16,7 @@
 	
 		Content: <form:input path="content" />  <form:errors style="color:red" path="content"/>
 		
-		Deadline: <form:input path="data" /><br>
+		
 		
 		
 		

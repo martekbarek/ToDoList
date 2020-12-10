@@ -221,7 +221,7 @@ public class Controller {
 			
 		
 			session.createQuery("update Task set content= '"+theTask.getContent()+"' where id=" + theTask.getId()).executeUpdate();
-			session.createQuery("update Task set data= '"+theTask.getData()+"' where id=" + theTask.getId()).executeUpdate();
+			
 
 			List<Task> tasks= session.createQuery("from Task").getResultList();
 			mv.addObject("tasks", tasks);

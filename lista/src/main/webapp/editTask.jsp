@@ -17,7 +17,7 @@
 		<form:hidden path="id"/>
 		Content:  <form:input path="content"/> <form:errors style="color:red" path="content" cssClass="error"/>
 		
-		Deadline: <form:input path="data"/><br>
+		
 		
 		<input type="submit" >
 	
